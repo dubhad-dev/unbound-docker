@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  unbound:
+    image: dubhad/unbound:1.11.0
+    restart: always
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+    volumes:
+      - ./root.hints:/usr/local/etc/unbound/root.hints:ro
+    environment:
+      - THREADS
+      - SLABS
