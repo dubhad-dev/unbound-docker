@@ -3,8 +3,6 @@ server:
     # BASIC SETTINGS
     ###########################################################################
     username: "unbound"
-    pidfile: "/usr/local/etc/unbound/unbound.pid"
-    module-config: "validator iterator"
     # Time to live maximum for RRsets and messages in the cache. If the maximum
     # kicks in, responses to clients still get decrementing TTLs based on the
     # original (larger) values. When the internal TTL expires, the cache item
@@ -80,12 +78,12 @@ server:
     ###########################################################################
     # SECURITY SETTINGS
     ###########################################################################
-    access-control: 0.0.0.0/0 allow
+    # access-control: 0.0.0.0/0 allow
     # Only give access to recursion clients from LAN IPs
-    # access-control: 127.0.0.1/32 allow
-    # access-control: 192.168.0.0/16 allow
-    # access-control: 172.16.0.0/12 allow
-    # access-control: 10.0.0.0/8 allow
+    access-control: 127.0.0.1/32 allow
+    access-control: 192.168.0.0/16 allow
+    access-control: 172.16.0.0/12 allow
+    access-control: 10.0.0.0/8 allow
     # access-control: fc00::/7 allow
     # access-control: ::1/128 allow
     # File with trust anchor for  one  zone, which is tracked with RFC5011
