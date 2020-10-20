@@ -1,6 +1,6 @@
-FROM debian:10.4 AS build
+FROM debian:10.6 AS build
 
-ARG UNBOUND_VERSION=1.11.0
+ARG UNBOUND_VERSION=1.12.0
 
 WORKDIR /build
 
@@ -20,7 +20,7 @@ RUN wget -O unbound.tar.gz https://nlnetlabs.nl/downloads/unbound/unbound-${UNBO
     && make install
 
 
-FROM debian:10.4 AS run
+FROM debian:10.6 AS run
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
       wget \
@@ -43,17 +43,18 @@ RUN wget -O root.hints https://www.internic.net/domain/named.cache --progress=do
 
 COPY unbound.conf.template ./templates/unbound.conf.template
 
-RUN unbound-anchor -a root.key || :
-
 ENV THREADS=1
 ENV SLABS=1
 
 RUN mkdir /docker-entrypoint.d
 COPY docker-entrypoint.sh /
 COPY 20-envsubst-on-templates.sh /docker-entrypoint.d
+COPY unbound.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 EXPOSE 53/tcp
 EXPOSE 53/udp
 
-CMD ["unbound"]
+HEALTHCHECK --interval=5s --timeout=3s --start-period=5s CMD drill @127.0.0.1 cloudflare.com || exit 1
+
+CMD ["/unbound.sh"]
