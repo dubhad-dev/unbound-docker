@@ -12,11 +12,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       libexpat1-dev \
       libldns-dev \
       libevent-dev \
+      libnghttp2-dev \
     && rm -rf /var/lib/apt/lists/*
 
 RUN wget -O unbound.tar.gz https://nlnetlabs.nl/downloads/unbound/unbound-${UNBOUND_VERSION}.tar.gz --progress=dot:giga \
     && tar -xzf unbound.tar.gz --strip 1 \
-    && ./configure --with-libevent \
+    && ./configure --with-libevent --with-libnghttp2 \
     && make install
 
 
@@ -30,6 +31,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       libexpat1 \
       gettext-base \
       ldnsutils \
+      libnghttp2-14 \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=build /usr/local/sbin/unbound* /usr/local/sbin/
@@ -42,7 +44,11 @@ RUN useradd -Urs /usr/bin/nologin unbound
 
 RUN wget -O root.hints https://www.internic.net/domain/named.cache --progress=dot:giga
 
-COPY unbound.conf.template ./templates/unbound.conf.template
+COPY unbound.conf.template templates/unbound.conf.template
+
+RUN mkdir -m 700 var && \
+      chown unbound:unbound var && \
+      unbound-anchor -a var/root.key || :
 
 ENV THREADS=1
 ENV SLABS=1
@@ -50,7 +56,6 @@ ENV SLABS=1
 RUN mkdir /docker-entrypoint.d
 COPY docker-entrypoint.sh /
 COPY 20-envsubst-on-templates.sh /docker-entrypoint.d
-COPY unbound.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 EXPOSE 53/tcp
@@ -58,4 +63,4 @@ EXPOSE 53/udp
 
 HEALTHCHECK --interval=5s --timeout=3s --start-period=5s CMD drill @127.0.0.1 cloudflare.com || exit 1
 
-CMD ["/unbound.sh"]
+CMD ["unbound"]

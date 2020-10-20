@@ -4,7 +4,7 @@ set -e
 
 exec 3>&1
 
-if [ "$1" = "/unbound.sh" ]; then
+if [ "$1" = "unbound" ]; then
     if /usr/bin/find "/docker-entrypoint.d/" -mindepth 1 -maxdepth 1 -type f -print -quit 2>/dev/null | read v; then
         echo >&3 "$0: /docker-entrypoint.d/ is not empty, will attempt to perform configuration"
 
