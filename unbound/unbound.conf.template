@@ -4,7 +4,6 @@ server:
     ###########################################################################
     username: "unbound"
     pidfile: "/usr/local/etc/unbound/unbound.pid"
-    root-hints: "/usr/local/etc/unbound/root.hints"
     module-config: "validator iterator"
     # Time to live maximum for RRsets and messages in the cache. If the maximum
     # kicks in, responses to clients still get decrementing TTLs based on the

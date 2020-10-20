@@ -39,8 +39,6 @@ WORKDIR /usr/local/etc/unbound
 
 RUN useradd -Urs /usr/bin/nologin unbound
 
-RUN wget -O root.hints https://www.internic.net/domain/named.cache --progress=dot:giga
-
 COPY unbound.conf.template ./templates/unbound.conf.template
 
 ENV THREADS=1
