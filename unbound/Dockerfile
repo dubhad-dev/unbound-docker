@@ -41,16 +41,12 @@ WORKDIR /usr/local/etc/unbound
 
 RUN groupadd _unbound && useradd -g _unbound -s /etc -d /dev/null _unbound
 
-COPY unbound.conf.template ./templates/unbound.conf.template
+COPY unbound.conf ./
 
 ENV THREADS=1
 ENV SLABS=1
 
-RUN mkdir /docker-entrypoint.d
-COPY docker-entrypoint.sh /
-COPY 20-envsubst-on-templates.sh /docker-entrypoint.d
 COPY unbound.sh /
-ENTRYPOINT ["/docker-entrypoint.sh"]
 
 EXPOSE 53/tcp
 EXPOSE 53/udp
