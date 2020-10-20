@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   unbound:
@@ -9,3 +9,6 @@ services:
     environment:
       - THREADS
       - SLABS
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
