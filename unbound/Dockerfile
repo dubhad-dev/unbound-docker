@@ -55,6 +55,6 @@ ENTRYPOINT ["/docker-entrypoint.sh"]
 EXPOSE 53/tcp
 EXPOSE 53/udp
 
-HEALTHCHECK --interval=5s --timeout=3s --start-period=5s CMD drill @127.0.0.1 cloudflare.com || exit 1
+HEALTHCHECK --interval=5s --timeout=3s --start-period=5s CMD dig @127.0.0.1 cloudflare.com || exit 1
 
 CMD ["/unbound.sh"]
