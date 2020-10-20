@@ -2,7 +2,7 @@ server:
     ###########################################################################
     # BASIC SETTINGS
     ###########################################################################
-    username: "unbound"
+    username: "_unbound"
     # Time to live maximum for RRsets and messages in the cache. If the maximum
     # kicks in, responses to clients still get decrementing TTLs based on the
     # original (larger) values. When the internal TTL expires, the cache item

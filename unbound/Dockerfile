@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN wget -O unbound.tar.gz https://nlnetlabs.nl/downloads/unbound/unbound-${UNBOUND_VERSION}.tar.gz --progress=dot:giga \
     && tar -xzf unbound.tar.gz --strip 1 \
-    && ./configure --with-libevent \
+    && ./configure --with-libevent --with-username=_unbound \
     && make install
 
 
@@ -37,7 +37,9 @@ RUN ldconfig
 
 WORKDIR /usr/local/etc/unbound
 
-RUN useradd -Urs /usr/bin/nologin unbound
+# RUN useradd -Urs /usr/bin/nologin unbound
+
+RUN groupadd _unbound && useradd -g _unbound -s /etc -d /dev/null _unbound
 
 COPY unbound.conf.template ./templates/unbound.conf.template
 
