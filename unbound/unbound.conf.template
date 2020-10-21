@@ -45,15 +45,15 @@ server:
     # LOGGING
     ###########################################################################
     # Do not print log lines to inform about local zone actions
-    log-local-actions: no
+    log-local-actions: yes
     # Do not print one line per query to the log
-    log-queries: no
+    log-queries: yes
     # Do not print one line per reply to the log
-    log-replies: no
+    log-replies: yes
     # Do not print log lines that say why queries return SERVFAIL to clients
-    log-servfail: no
+    log-servfail: yes
     # Only log errors
-    verbosity: 0
+    verbosity: 5
     ###########################################################################
     # PRIVACY SETTINGS
     ###########################################################################
