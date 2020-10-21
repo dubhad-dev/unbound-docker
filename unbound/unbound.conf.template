@@ -35,8 +35,8 @@ server:
     # and port.
     interface: 0.0.0.0@53
     interface: 0.0.0.0@443
-    tls-service-key "cert.key"
-    tls-service-pem: "cert.pem"
+    ssl-service-key "cert.key"
+    ssl-service-pem: "cert.pem"
     # Rotates RRSet order in response (the pseudo-random number is taken from
     # the query ID, for speed and thread safety).
     rrset-roundrobin: yes
