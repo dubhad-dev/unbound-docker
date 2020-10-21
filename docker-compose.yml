@@ -2,13 +2,14 @@ version: "3.8"
 
 services:
   unbound:
-    image: dubhad/unbound:1.12.0
+    build: .
     restart: always
     volumes:
       - ./root.hints:/usr/local/etc/unbound/root.hints:ro
     environment:
       - THREADS
       - SLABS
-    ports:
-      - "53:53/tcp"
-      - "53:53/udp"
+      - VIRTUAL_HOST
+      - VIRTUAL_PORT=443
+      - LETSENCRYPT_HOST
+      - LETSENCRYPT_EMAIL
