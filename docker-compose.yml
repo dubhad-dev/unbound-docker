@@ -10,6 +10,6 @@ services:
       - THREADS
       - SLABS
       - VIRTUAL_HOST
-      - VIRTUAL_PORT=443
+      - VIRTUAL_PORT=80
       - LETSENCRYPT_HOST
       - LETSENCRYPT_EMAIL
