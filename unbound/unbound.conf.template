@@ -34,9 +34,10 @@ server:
     # Listen to for queries from clients and answer from this network interface
     # and port.
     interface: 0.0.0.0@53
+    interface: 0.0.0.0@853
     interface: 0.0.0.0@443
-    ssl-service-key: "cert.key"
-    ssl-service-pem: "cert.pem"
+    tls-service-key: "cert.key"
+    tls-service-pem: "cert.pem"
     # Rotates RRSet order in response (the pseudo-random number is taken from
     # the query ID, for speed and thread safety).
     rrset-roundrobin: yes
@@ -53,7 +54,7 @@ server:
     # Do not print log lines that say why queries return SERVFAIL to clients
     log-servfail: yes
     # Only log errors
-    verbosity: 5
+    verbosity: 3
     ###########################################################################
     # PRIVACY SETTINGS
     ###########################################################################
