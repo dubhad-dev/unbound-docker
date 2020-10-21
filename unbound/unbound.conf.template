@@ -36,7 +36,7 @@ server:
     interface: 0.0.0.0@53
     interface: 0.0.0.0@853
     interface: 0.0.0.0@443
-    tls-service-key: "cert.key"
+    tls-service-key: "key.pem"
     tls-service-pem: "cert.pem"
     # Rotates RRSet order in response (the pseudo-random number is taken from
     # the query ID, for speed and thread safety).

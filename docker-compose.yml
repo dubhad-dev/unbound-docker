@@ -6,8 +6,8 @@ services:
     restart: always
     volumes:
       - ./root.hints:/usr/local/etc/unbound/root.hints:ro
-      - ./certs/proxybel.xyz.key:/usr/local/etc/unbound/cert.key:ro
-      - ./certs/proxybel.xyz.pem:/usr/local/etc/unbound/cert.pem:ro
+      - ./certs/privkey.pem:/usr/local/etc/unbound/key.pem:ro
+      - ./certs/fullchain.pem:/usr/local/etc/unbound/cert.pem:ro
     environment:
       - THREADS
       - SLABS
