@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   unbound:
-    build: .
+    build: unbound
     restart: always
     volumes:
       - ./root.hints:/usr/local/etc/unbound/root.hints:ro
