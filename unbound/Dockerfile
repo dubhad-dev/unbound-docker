@@ -46,7 +46,7 @@ RUN wget -O root.hints https://www.internic.net/domain/named.cache --progress=do
 
 COPY unbound.conf.template templates/unbound.conf.template
 
-RUN mkdir -m 700 var && \
+RUN mkdir conf && mkdir -m 700 var && \
       chown unbound:unbound var && \
       unbound-anchor -a var/root.key || :
 
@@ -60,6 +60,9 @@ ENTRYPOINT ["/docker-entrypoint.sh"]
 
 EXPOSE 53/tcp
 EXPOSE 53/udp
+EXPOSE 853/tcp
+EXPOSE 853/udp
+EXPOSE 443/tcp
 
 HEALTHCHECK --interval=5s --timeout=3s --start-period=5s CMD drill @127.0.0.1 cloudflare.com || exit 1
 

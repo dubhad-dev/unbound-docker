@@ -2,13 +2,20 @@ version: "3.8"
 
 services:
   unbound:
-    image: dubhad/unbound:1.12.0
-    restart: always
-    volumes:
-      - ./root.hints:/usr/local/etc/unbound/root.hints:ro
+    build: unbound
     environment:
       - THREADS
       - SLABS
+      - CERT_NAME
+      - KEY_NAME
     ports:
       - "53:53/tcp"
       - "53:53/udp"
+      - "853:853/tcp"
+      - "853:853/udp"
+      - "443:443/tcp"
+    restart: always
+    volumes:
+      - ./root.hints:/usr/local/etc/unbound/root.hints:ro
+      - ./certs:/usr/local/etc/unbound/certs:ro
+      - ./conf:/usr/local/etc/unbound/conf:ro

@@ -34,6 +34,8 @@ server:
     # Listen to for queries from clients and answer from this network interface
     # and port.
     interface: 0.0.0.0@53
+    interface: 0.0.0.0@853
+    interface: 0.0.0.0@443
     # Rotates RRSet order in response (the pseudo-random number is taken from
     # the query ID, for speed and thread safety).
     rrset-roundrobin: yes
@@ -41,6 +43,7 @@ server:
     ###########################################################################
     # LOGGING
     ###########################################################################
+    use-syslog: no
     # Do not print log lines to inform about local zone actions
     log-local-actions: no
     # Do not print one line per query to the log
@@ -165,6 +168,8 @@ server:
     # signed properly. Messages that are insecure, bogus, indeterminate or
     # unchecked are not affected.
     val-clean-additional: yes
+    tls-service-pem: /usr/local/etc/unbound/certs/${CERT_NAME}
+    tls-service-key: /usr/local/etc/unbound/certs/${KEY_NAME}
     ###########################################################################
     # PERFORMANCE SETTINGS
     ###########################################################################
@@ -235,17 +240,4 @@ server:
     # incoming queries to threads more evenly.
     so-reuseport: yes
 
-	# forward-zone:
-	# 	name: "."
-	# 	forward-tls-upstream: yes  
-	# 	# Cloudflare DNS
-    #     forward-addr: 1.1.1.1@853#cloudflare-dns.com
-    #     forward-addr: 1.0.0.1@853#cloudflare-dns.com
-    #     # forward-addr: 2606:4700:4700::1111@853#cloudflare-dns.com
-    #     # forward-addr: 2606:4700:4700::1001@853#cloudflare-dns.com
-
-    #     ## Quad9
-    #     forward-addr: 9.9.9.9@853#dns.quad9.net
-    #     forward-addr: 149.112.112.112@853#dns.quad9.net
-    #     # forward-addr: 2620:fe::fe@853#dns.quad9.net
-    #     # forward-addr: 2620:fe::9@853#dns.quad9.net
+    include: "/usr/local/etc/unbound/conf/*.conf"
