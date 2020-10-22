@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   unbound:
-    build: unbound
+    image: dubhad/unbound:1.12.0
     environment:
       - THREADS
       - SLABS
@@ -16,6 +16,6 @@ services:
       - "443:443/tcp"
     restart: always
     volumes:
-      - ./root.hints:/usr/local/etc/unbound/root.hints:ro
-      - ./certs:/usr/local/etc/unbound/certs:ro
-      - ./conf:/usr/local/etc/unbound/conf:ro
+      - ${ROOT_HINTS_FILE}:/usr/local/etc/unbound/root.hints:ro
+      - ${CERTS_DIR}:/usr/local/etc/unbound/certs:ro
+      - ${CONF_DIR}:/usr/local/etc/unbound/conf:ro
